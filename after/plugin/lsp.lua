@@ -22,6 +22,7 @@ require('mason-lspconfig').setup({
                     "--header-insertion-decorators",
                     "--completion-style=bundled",
                     "--query-driver=/usr/share/*-arm-none-eabi*/bin/arm-none-eabi-g*",
+                    "--query-driver=/Users/**/bin/*-arm-none-eabi*/bin/arm-none-eabi-*",
                     "--query-driver=/usr/bin/g*",
                     "--query-driver=/usr/bin/clang*",
                     "--pch-storage=memory",
