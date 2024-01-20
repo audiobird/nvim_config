@@ -13,10 +13,6 @@ return require('packer').startup(function(use)
 	  requires = { {'nvim-lua/plenary.nvim'} }
   }
 
--- use({ 'rose-pine/neovim', as = 'rose-pine', config = function()
--- 	  vim.cmd('colorscheme rose-pine')
---   end
---   })
   use { "ellisonleao/gruvbox.nvim" }
   use {
 	  'nvim-treesitter/nvim-treesitter',
@@ -42,7 +38,9 @@ return require('packer').startup(function(use)
 		  -- Autocompletion
           {'hrsh7th/nvim-cmp'},
           {'hrsh7th/cmp-nvim-lsp'},
-          {'L3MON4D3/LuaSnip'},
+          {'hrsh7th/cmp-vsnip'},
+          {'hrsh7th/cmp-nvim-lsp-signature-help'},
+          {'hrsh7th/vim-vsnip'}
       }
   }
 end)
