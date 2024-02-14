@@ -16,6 +16,12 @@ return require('packer').startup(function(use)
 		  ts_update()
 	  end,
   }
+  use {
+    "chrisgrieser/nvim-early-retirement",
+    config = function () require("early-retirement").setup({
+        retirementAgeMins = 10,
+    }) end,
+  }
   use ('nvim-treesitter/playground')
   use("nvim-treesitter/nvim-treesitter-context");
   use ('theprimeagen/harpoon')
