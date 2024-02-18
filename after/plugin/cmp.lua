@@ -76,4 +76,7 @@ cmp.setup({
             return vim_item
         end,
     },
+    matching = {
+        disallow_fuzzy_matching = true,
+    }
 })
