@@ -37,6 +37,12 @@ require('mason-lspconfig').setup({
                 },
                 filetypes = { "c", "c++", "cpp" },
             })
+        end,
+        tsserver = function()
+            require('lspconfig').tsserver.setup({
+                capabilities = capabilities,
+                single_file_support = true,
+            })
         end
     },
 })
