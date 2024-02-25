@@ -50,5 +50,29 @@ lsp_zero.format_on_save({
         ['clangd'] = { 'cpp' },
         ['tsserver'] = { 'javascript', 'typescript' },
         ['rust_analyzer'] = { 'rust' },
+        ['gopls'] = { 'go' },
     }
 })
+
+local function setup_lsp_diags()
+  vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+    vim.lsp.diagnostic.on_publish_diagnostics,
+    {
+      virtual_text = false,
+      signs = true,
+      update_in_insert = false,
+      underline = true,
+    }
+  )
+end
+
+setup_lsp_diags()
+
+vim.o.updatetime = 150
+vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+  group = vim.api.nvim_create_augroup("float_diagnostic", { clear = true }),
+  callback = function ()
+    vim.diagnostic.open_float(nil, {focus=false})
+  end
+})
+
