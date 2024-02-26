@@ -43,7 +43,19 @@ require('mason-lspconfig').setup({
                 capabilities = capabilities,
                 single_file_support = true,
             })
-        end
+        end,
+        html = function()
+            require('lspconfig').html.setup({
+                init_options = {
+                    configurationSection = { "html", "css", "javascript" },
+                    embeddedLanguages = {
+                        css = true,
+                        javascript = true,
+                    },
+                    provideFormatter = true,
+                },
+            })
+        end,
     },
 })
 
@@ -55,30 +67,30 @@ lsp_zero.format_on_save({
     servers = {
         ['clangd'] = { 'cpp' },
         ['tsserver'] = { 'javascript', 'typescript' },
-        ['rust_analyzer'] = { 'rust' },
         ['gopls'] = { 'go' },
+        ['html'] = { 'html' },
     }
 })
 
 local function setup_lsp_diags()
-  vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+    vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
     vim.lsp.diagnostic.on_publish_diagnostics,
     {
-      virtual_text = false,
-      signs = true,
-      update_in_insert = false,
-      underline = true,
+        virtual_text = false,
+        signs = true,
+        update_in_insert = false,
+        underline = true,
     }
-  )
+    )
 end
 
 setup_lsp_diags()
 
 vim.o.updatetime = 150
 vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
-  group = vim.api.nvim_create_augroup("float_diagnostic", { clear = true }),
-  callback = function ()
-    vim.diagnostic.open_float(nil, {focus=false})
-  end
+    group = vim.api.nvim_create_augroup("float_diagnostic", { clear = true }),
+    callback = function ()
+        vim.diagnostic.open_float(nil, {focus=false})
+    end
 })
 
