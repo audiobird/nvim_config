@@ -68,7 +68,6 @@ lsp_zero.format_on_save({
         ['clangd'] = { 'cpp' },
         ['tsserver'] = { 'javascript', 'typescript' },
         ['gopls'] = { 'go' },
-        ['html'] = { 'html' },
     }
 })
 
