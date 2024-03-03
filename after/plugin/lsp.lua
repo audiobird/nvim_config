@@ -86,7 +86,7 @@ end
 setup_lsp_diags()
 
 vim.o.updatetime = 150
-vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+vim.api.nvim_create_autocmd({ "CursorHold" }, {
     group = vim.api.nvim_create_augroup("float_diagnostic", { clear = true }),
     callback = function ()
         vim.diagnostic.open_float(nil, {focus=false})
