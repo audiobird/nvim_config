@@ -66,7 +66,6 @@ lsp_zero.format_on_save({
     },
     servers = {
         ['clangd'] = { 'cpp' },
-        ['tsserver'] = { 'javascript', 'typescript' },
         ['gopls'] = { 'go' },
     }
 })
