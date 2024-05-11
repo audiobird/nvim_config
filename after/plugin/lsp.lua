@@ -9,17 +9,17 @@ lsp.set_sign_icons({
 
 lsp.preset("recommended")
 
-
 lsp.on_attach(function(client, bufnr)
     lsp.default_keymaps({ buffer = bufnr })
     vim.keymap.set('n', 'gr', '<cmd>Telescope lsp_references<cr>', { buffer = bufnr })
+    vim.keymap.set('n', 'gi', '<cmd>Telescope lsp_implementations<cr>', { buffer = bufnr })
 end)
 
 -- Set up lspconfig.
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 -- disable snippets!
-capabilities.textDocument.completion.completionItem.snippetSupport = false
+-- capabilities.textDocument.completion.completionItem.snippetSupport = false
 
 require('mason').setup({})
 require('mason-lspconfig').setup({
@@ -29,7 +29,9 @@ require('mason-lspconfig').setup({
         'html',
     },
     handlers = {
-        lsp.default_setup,
+        function(server_name)
+            require('lspconfig')[server_name].setup({})
+        end,
         clangd = function()
             require('lspconfig').clangd.setup({
                 capabilities = capabilities,
@@ -42,9 +44,8 @@ require('mason-lspconfig').setup({
                     "--header-insertion=iwyu",
                     "--header-insertion-decorators",
                     "--completion-style=bundled",
-                    "--query-driver=/usr/share/*-arm-none-eabi*/bin/arm-none-eabi-g*",
+                    "--query-driver=/usr/bin/arm-none-eabi-g*",
                     "--query-driver=/usr/bin/g*",
-                    "--query-driver=/usr/bin/clang*",
                     "--pch-storage=memory",
                     "--enable-config"
                 },
@@ -54,7 +55,6 @@ require('mason-lspconfig').setup({
         -- undefined vim error
         lua_ls = function()
             require('lspconfig').lua_ls.setup({
-
                 settings = {
                     Lua = {
                         diagnostics = {
@@ -62,32 +62,6 @@ require('mason-lspconfig').setup({
                         }
                     }
                 }
-            })
-        end,
-        gopls = function()
-            require('lspconfig').gopls.setup({
-                filetypes = { "go", "gomod", "gowork", "gotmpl" },
-                settings = {
-                    -- meh, doesn't seem to work templateExtensions = { "gohtml", "tmpl", "gotmpl", "tpl", "html" },
-                },
-            })
-        end,
-        tsserver = function()
-            require('lspconfig').tsserver.setup({
-                capabilities = capabilities,
-                single_file_support = true,
-            })
-        end,
-        html = function()
-            require('lspconfig').html.setup({
-                init_options = {
-                    configurationSection = { "css", "javascript" },
-                    embeddedLanguages = {
-                        css = true,
-                        javascript = true,
-                    },
-                    provideFormatter = true,
-                },
             })
         end,
     },
@@ -103,29 +77,6 @@ lsp.format_on_save({
         ['gopls'] = { 'go' },
         ['html'] = { 'html' },
         ['lua_ls'] = { 'lua' },
+        ['templ'] = { 'templ' },
     }
 })
-
--- auto diagnostic window. dont really like it anymore
---local function setup_lsp_diags()
---    vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
---        vim.lsp.diagnostic.on_publish_diagnostics,
---        {
---            virtual_text = false,
---            signs = true,
---            update_in_insert = false,
---            underline = true,
---        }
---    )
---end
---
---setup_lsp_diags()
---
---vim.o.updatetime = 150
---vim.api.nvim_create_autocmd({ "CursorHold" }, {
---    group = vim.api.nvim_create_augroup("float_diagnostic", { clear = true }),
---    callback = function()
---        vim.diagnostic.open_float(nil,
---            { focusable = false, scope = "line", close_events = { "CursorMoved", "CursorMovedI", "BufHidden", "InsertCharPre", "WinLeave" }, focus = false })
---    end
---})
