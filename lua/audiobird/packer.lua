@@ -8,7 +8,6 @@ return require('packer').startup(function(use)
         requires = { { 'nvim-lua/plenary.nvim' } }
     }
 
-    use { "ellisonleao/gruvbox.nvim" }
     use {
         'nvim-treesitter/nvim-treesitter',
         run = function()
@@ -27,6 +26,8 @@ return require('packer').startup(function(use)
     use('nvim-treesitter/playground')
     use("nvim-treesitter/nvim-treesitter-context");
     use('theprimeagen/harpoon')
+    use('RRethy/base16-nvim')
+    use('hiphish/rainbow-delimiters.nvim')
     use('mbbill/undotree')
     use('voldikss/vim-floaterm')
     use {
