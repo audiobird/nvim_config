@@ -36,7 +36,7 @@ require('mason-lspconfig').setup({
             require('lspconfig').clangd.setup({
                 capabilities = capabilities,
                 cmd = {
-                    "clangd",
+                    "/usr/bin/clangd",
                     "--background-index",
                     "--clang-tidy",
                     "--pretty",
@@ -44,11 +44,13 @@ require('mason-lspconfig').setup({
                     "--header-insertion=iwyu",
                     "--header-insertion-decorators",
                     "--completion-style=bundled",
-                    "--query-driver=/usr/bin/arm-none-eabi-g*",
+                    "--query-driver=" .. os.getenv("HOME") .. "/.gcc/12.3/bin/arm-none-eabi-*",
                     "--query-driver=/usr/bin/g*",
                     "--pch-storage=memory",
-                    "--enable-config"
+                    "--enable-config",
+                    "--log=verbose"
                 },
+                root_dir = require('lspconfig').util.root_pattern("build/compile_commands.json", "compile_commands.json"),
                 filetypes = { "c", "c++", "cpp" },
             })
         end,
