@@ -30,9 +30,14 @@ return require('packer').startup(function(use)
     use('hiphish/rainbow-delimiters.nvim')
     use('mbbill/undotree')
     use('voldikss/vim-floaterm')
+
+    use { "L3MON4D3/LuaSnip", tag = "v2.*", run = "make install_jsregexp" }
+    use('rafamadriz/friendly-snippets')
+    use('saadparwaiz1/cmp_luasnip')
+
     use {
         'VonHeikemen/lsp-zero.nvim',
-        branch = 'v3.x',
+        branch = 'v4.x',
         requires = {
             { 'williamboman/mason.nvim' },
             { 'williamboman/mason-lspconfig.nvim' },
@@ -41,9 +46,9 @@ return require('packer').startup(function(use)
 
             { 'hrsh7th/nvim-cmp' },
             { 'hrsh7th/cmp-nvim-lsp' },
-            { 'hrsh7th/cmp-vsnip' },
             { 'hrsh7th/cmp-nvim-lsp-signature-help' },
-            { 'hrsh7th/vim-vsnip' }
+            { 'hrsh7th/cmp-calc' },
+            { 'hrsh7th/cmp-buffer' },
         }
     }
 end)

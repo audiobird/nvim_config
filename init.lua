@@ -1,5 +1,4 @@
 require("audiobird")
-
 -- stop auto comment when new line
 vim.cmd([[autocmd FileType * set formatoptions-=ro]])
 
@@ -9,5 +8,6 @@ vim.cmd([[command! W  write]])
 vim.filetype.add({
     extension = {
         templ = "templ",
+        html = "html",
     }
 })
